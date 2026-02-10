@@ -87,5 +87,14 @@ namespace TelemetryCore.Builders
             return builder.Build();
 
         }
+
+        public ITelemetryAnalyzer BuildCustomConfiguration(IAnalyzerBuilder builder, CalibrationData calibration, FilterConfig filters, OutputFormat format)
+        {
+            builder.Reset();
+            builder.SetCalibration(calibration);
+            builder.SetFilters(filters);
+            builder.SetOutputFormat(format);
+            return builder.Build();
+        }
     }
 }
