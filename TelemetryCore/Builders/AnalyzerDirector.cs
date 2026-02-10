@@ -37,5 +37,29 @@ namespace TelemetryCore.Builders
             builder.SetOutputFormat(OutputFormat.JSON);
             return builder.Build();
         }
+
+        public ITelemetryAnalyzer BuildMoonConfiguration(IAnalyzerBuilder builder)
+        {
+            builder.Reset();
+
+            var calibration = new CalibrationData
+            {
+                ReferenceValue = 1.16,
+                Offset = -120.0,
+                CalibrationDate = DateTime.Now
+            };
+            builder.SetCalibration(calibration);
+
+            var filters = new FilterConfig
+            {
+                MinThreshold = 1.0,
+                MaxThreshold = 999.0,
+                EnableNoiseReduction = false
+            };
+            builder.SetFilters(filters);
+
+            builder.SetOutputFormat(OutputFormat.XML);
+            return builder.Build();
+        }
     }
 }
