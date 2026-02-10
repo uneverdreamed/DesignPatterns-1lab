@@ -61,5 +61,31 @@ namespace TelemetryCore.Builders
             builder.SetOutputFormat(OutputFormat.XML);
             return builder.Build();
         }
+
+        public ITelemetryAnalyzer BuildDefaultConfiguration(IAnalyzerBuilder builder)
+        {
+            builder.Reset();
+
+            var calibration = new CalibrationData
+            {
+                ReferenceValue = 1.0,
+                Offset = 0.0,
+                CalibrationDate = DateTime.Now
+            };
+            builder.SetCalibration(calibration);
+
+            var filters = new FilterConfig
+            {
+                MinThreshold = 0.0,
+                MaxThreshold = 1000.0,
+                EnableNoiseReduction = false
+            };
+            builder.SetFilters(filters);
+
+            builder.SetOutputFormat(OutputFormat.PlainText);
+
+            return builder.Build();
+
+        }
     }
 }
