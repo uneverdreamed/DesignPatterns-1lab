@@ -24,7 +24,7 @@ namespace TelemetryCore.interfaces
         /// Получение отчета о результатах анализа
         /// </summary>
         /// <returns></returns>
-        string GetSupport();
+        string GetReport();
         /// <summary>
         /// Завершение работы анализатора и освобождение ресурсов
         /// </summary>
