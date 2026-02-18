@@ -82,8 +82,8 @@ namespace SpectrometerPlugin
         {
             var sb = new StringBuilder();
             sb.AppendLine("{");
-            sb.AppendLine($"  \"samples\": {_wavelengths.Count},");
-            sb.AppendLine($"  \"peak_intensity\": {_intensities.Max():F2}");
+            sb.AppendLine($"  \"образцов\": {_wavelengths.Count},");
+            sb.AppendLine($"  \"пик_интенсивности\": {_intensities.Max():F2}");
             sb.AppendLine("}");
             return sb.ToString();
         }
@@ -91,9 +91,9 @@ namespace SpectrometerPlugin
         private string GenerateText()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("=== SPECTROMETER REPORT ===");
-            sb.AppendLine($"Samples: {_wavelengths.Count}");
-            sb.AppendLine($"Peak: {_intensities.Max():F2} at {_wavelengths[_intensities.IndexOf(_intensities.Max())]:F2} nm");
+            sb.AppendLine("--- ОТЧЕТ СПЕКТРОМЕТРА ---");
+            sb.AppendLine($"Образцов: {_wavelengths.Count}");
+            sb.AppendLine($"Пик: {_intensities.Max():F2} at {_wavelengths[_intensities.IndexOf(_intensities.Max())]:F2} nm");
             return sb.ToString();
         }
     }
