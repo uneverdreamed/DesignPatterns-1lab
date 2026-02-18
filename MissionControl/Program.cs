@@ -147,13 +147,32 @@ namespace MissionControl
             try
             {
                 var assemblyName = factory.GetType().Assembly.GetName().Name;
-                var builderTypeName = $"{assemblyName}.{factory.GetPluginName().Replace(" Analyzer", "")}Builder";
+                string builderTypeName;
+
+                // Определяем имя строителя по имени сборки
+                if (assemblyName == "RadarPlugin")
+                {
+                    builderTypeName = "RadarPlugin.RadarBuilder";
+                }
+                else if (assemblyName == "SpectrometerPlugin")
+                {
+                    builderTypeName = "SpectrometerPlugin.SpectrometerBuilder";
+                }
+                else
+                {
+                    Console.WriteLine($"[ВНИМАНИЕ] Неизвестный плагин: {assemblyName}");
+                    return null;
+                }
 
                 var builderType = factory.GetType().Assembly.GetType(builderTypeName);
 
                 if (builderType != null)
                 {
                     return (IAnalyzerBuilder)Activator.CreateInstance(builderType)!;
+                }
+                else
+                {
+                    Console.WriteLine($"[ВНИМАНИЕ] Тип строителя не найден: {builderTypeName}");
                 }
             }
             catch (Exception ex)
