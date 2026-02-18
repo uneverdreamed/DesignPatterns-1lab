@@ -45,11 +45,11 @@ namespace MissionControl
 
                 // Генерируем тестовые данные
                 byte[] testData;
-                if (factory.GetPluginName().Contains("Spectrometer"))
+                if (factory.GetPluginName().Contains("спектрометра"))
                 {
                     testData = TelemetrySimulator.GenerateSpectrometerData(30);
                 }
-                else if (factory.GetPluginName().Contains("Radar"))
+                else if (factory.GetPluginName().Contains("радара"))
                 {
                     testData = TelemetrySimulator.GenerateRadarData(25);
                 }
@@ -89,7 +89,7 @@ namespace MissionControl
                     var marsAnalyzer = director.BuildMarsConfiguration(builder);
                     marsAnalyzer.Initialize();
 
-                    byte[] marsData = factory.GetPluginName().Contains("Spectrometer")
+                    byte[] marsData = factory.GetPluginName().Contains("спектрометра")
                         ? TelemetrySimulator.GenerateSpectrometerData(20)
                         : TelemetrySimulator.GenerateRadarData(15);
 
@@ -103,7 +103,7 @@ namespace MissionControl
                     var MoonAnalyzer = director.BuildMoonConfiguration(builder);
                     MoonAnalyzer.Initialize();
 
-                    byte[] MoonData = factory.GetPluginName().Contains("Spectrometer")
+                    byte[] MoonData = factory.GetPluginName().Contains("спектрометра")
                         ? TelemetrySimulator.GenerateSpectrometerData(20)
                         : TelemetrySimulator.GenerateRadarData(15);
 
@@ -122,7 +122,7 @@ namespace MissionControl
                     var customAnalyzer = builder.Build();
                     customAnalyzer.Initialize();
 
-                    byte[] customData = factory.GetPluginName().Contains("Spectrometer")
+                    byte[] customData = factory.GetPluginName().Contains("спектрометра")
                         ? TelemetrySimulator.GenerateSpectrometerData(20)
                         : TelemetrySimulator.GenerateRadarData(15);
 
