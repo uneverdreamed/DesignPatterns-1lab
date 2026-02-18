@@ -16,7 +16,7 @@ namespace MissionControl
             Console.WriteLine("║   ЦЕНТР УПРАВЛЕНИЯ МИССИЕЙ - v1.0      ║");
             Console.WriteLine("╚════════════════════════════════════════╝\n");
 
-            // === ЭТАП 1: Загрузка плагинов ===
+            // 1: загрузка плагинов
             Console.WriteLine("= ЭТАП 1: Загрузка плагинов =");
             var loader = new PluginLoader();
             var pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
@@ -32,18 +32,18 @@ namespace MissionControl
 
             Console.WriteLine($"\n[УСПЕХ] Загружено плагинов: {factories.Count}\n");
 
-            // === ЭТАП 2: Демонстрация Фабричного метода ===
+            // 2: демонстрация Фабричного метода
             Console.WriteLine("= ЭТАП 2: Демонстрация паттерна Фабричный метод =");
 
             foreach (var factory in factories)
             {
                 Console.WriteLine($"\n= Тестирование {factory.GetPluginName()} =");
 
-                // Создаём анализатор через фабрику
+                // создание анализатора через фабрику
                 var analyzer = factory.CreateAnalyzer();
                 analyzer.Initialize();
 
-                // Генерируем тестовые данные
+                // генерация тестовых данных
                 byte[] testData;
                 if (factory.GetPluginName().Contains("спектрометра"))
                 {
@@ -58,33 +58,33 @@ namespace MissionControl
                     testData = new byte[50];
                 }
 
-                // Обрабатываем данные
+                // обработка данных
                 analyzer.ProcessData(testData);
 
-                // Получаем отчёт
+                // получение отчёта
                 Console.WriteLine("\n--- Отчёт (формат PlainText) ---");
                 Console.WriteLine(analyzer.GetReport());
 
                 analyzer.Terminate();
             }
 
-            // === ЭТАП 3: Демонстрация Строителя ===
+            // 3: демонстрация строителя 
             Console.WriteLine("\n= ЭТАП 3: Демонстрация паттерна Строитель =");
 
             if (factories.Count > 0)
             {
-                var factory = factories[0]; // Берём первый плагин
+                var factory = factories[0]; // первый плагин
                 Console.WriteLine($"\n--- Конфигурация {factory.GetPluginName()} через Строитель ---");
 
-                // Создаём строитель (упрощённо - через рефлексию)
+                // создание строителя 
                 IAnalyzerBuilder? builder = CreateBuilder(factory);
 
                 if (builder != null)
                 {
-                    // Создаём директора
+                    // создание директора
                     var director = new AnalyzerDirector();
 
-                    // === Конфигурация 1: Mars ===
+                    // конфигурация 1: марс 
                     Console.WriteLine("\n--- Конфигурация: МАРСИАНСКАЯ МИССИЯ ---");
                     var marsAnalyzer = director.BuildMarsConfiguration(builder);
                     marsAnalyzer.Initialize();
@@ -98,7 +98,7 @@ namespace MissionControl
                     Console.WriteLine(marsAnalyzer.GetReport());
                     marsAnalyzer.Terminate();
 
-                    // === Конфигурация 2: Moon ===
+                    // конфигурация 2: луна
                     Console.WriteLine("\n--- Конфигурация: ЛУННАЯ МИССИЯ ---");
                     var MoonAnalyzer = director.BuildMoonConfiguration(builder);
                     MoonAnalyzer.Initialize();
@@ -112,7 +112,7 @@ namespace MissionControl
                     Console.WriteLine(MoonAnalyzer.GetReport());
                     MoonAnalyzer.Terminate();
 
-                    // === Конфигурация 3: Custom ===
+                    // конфигурация 3: пользовательская
                     Console.WriteLine("\n--- Конфигурация: ПОЛЬЗОВАТЕЛЬСКАЯ ---");
                     builder.Reset();
                     builder.SetCalibration(new CalibrationData(2.0, 10.0));
@@ -133,7 +133,7 @@ namespace MissionControl
                 }
             }
 
-            // === ЗАВЕРШЕНИЕ ===
+            // ЗАВЕРШЕНИЕ 
             Console.WriteLine("\n╔════════════════════════════════════════╗");
             Console.WriteLine("║        ДЕМОНСТРАЦИЯ ЗАВЕРШЕНА          ║");
             Console.WriteLine("╚════════════════════════════════════════╝");
@@ -141,7 +141,7 @@ namespace MissionControl
             Console.ReadKey();
         }
 
-        // Вспомогательный метод для создания строителя
+        // вспомогательный метод для создания строителя
         static IAnalyzerBuilder? CreateBuilder(AnalyzerFactory factory)
         {
             try
@@ -149,7 +149,7 @@ namespace MissionControl
                 var assemblyName = factory.GetType().Assembly.GetName().Name;
                 string builderTypeName;
 
-                // Определяем имя строителя по имени сборки
+                // определяем имя строителя по имени сборки
                 if (assemblyName == "RadarPlugin")
                 {
                     builderTypeName = "RadarPlugin.RadarBuilder";

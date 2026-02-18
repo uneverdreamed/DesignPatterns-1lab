@@ -48,17 +48,6 @@ namespace RadarPlugin
 
                 double reflection = (rawReflection * Calibration!.ReferenceValue) + Calibration.Offset;
 
-                // ОТЛАДКА 
-                if (i == 0) 
-                {
-                    Console.WriteLine($"[DEBUG] Сырое: {rawReflection:F2}, Калибровка: Ref={Calibration.ReferenceValue}, Offset={Calibration.Offset}, Результат: {reflection:F2}");
-                    Console.WriteLine($"[DEBUG] Фильтры: Min={Filters!.MinThreshold}, Max={Filters.MaxThreshold}");
-                }
-
-                if (reflection >= Filters!.MinThreshold && reflection <= Filters.MaxThreshold)
-
-                // ОТЛАДКА
-
                     if (reflection >= Filters!.MinThreshold && reflection <= Filters.MaxThreshold)
                 {
                     _distances.Add(Math.Round(distance, 2));
