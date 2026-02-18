@@ -27,7 +27,7 @@ namespace RadarPlugin
 
         public void Initialize()
         {
-            Console.WriteLine("[RADAR] Initialized");
+            Console.WriteLine("[РАДАР] Инициализирован");
             _distances.Clear();
             _reflections.Clear();
             _isInitialized = true;
@@ -36,9 +36,9 @@ namespace RadarPlugin
         public void ProcessData(byte[] rawData)
         {
             if (!_isInitialized)
-                throw new InvalidOperationException("Not initialized");
+                throw new InvalidOperationException("Анализатор не инициализирован");
 
-            Console.WriteLine($"[RADAR] Processing {rawData.Length} bytes...");
+            Console.WriteLine($"[РАДАР] Обработка {rawData.Length} байт...");
 
             for (int i = 0; i < rawData.Length - 1; i += 2)
             {
@@ -55,25 +55,25 @@ namespace RadarPlugin
                 }
             }
 
-            Console.WriteLine($"[RADAR] Detected {_distances.Count} echoes");
+            Console.WriteLine($"[РАДАР] Обнаружено {_distances.Count} эхо-сигналов");
         }
 
         public string GetReport()
         {
             if (_distances.Count == 0)
-                return "No radar data";
+                return "Нет данных радара";
 
             return OutputFormat switch
             {
                 OutputFormat.JSON => GenerateJson(),
                 OutputFormat.PlainText => GenerateText(),
-                _ => "Unknown format"
+                _ => "Неизвестный формат"
             };
         }
 
         public void Terminate()
         {
-            Console.WriteLine("[RADAR] Terminated");
+            Console.WriteLine("[РАДАР] Завершён");
             _distances.Clear();
             _reflections.Clear();
             _isInitialized = false;
@@ -83,9 +83,9 @@ namespace RadarPlugin
         {
             var sb = new StringBuilder();
             sb.AppendLine("{");
-            sb.AppendLine($"  \"echoes\": {_distances.Count},");
-            sb.AppendLine($"  \"nearest_object\": {_distances.Min():F2},");
-            sb.AppendLine($"  \"strongest_reflection\": {_reflections.Max():F2}");
+            sb.AppendLine($"  \"эхо_сигналов\": {_distances.Count},");
+            sb.AppendLine($"  \"ближайший_объект\": {_distances.Min():F2},");
+            sb.AppendLine($"  \"сильнейшее_отражение\": {_reflections.Max():F2}");
             sb.AppendLine("}");
             return sb.ToString();
         }
@@ -93,10 +93,10 @@ namespace RadarPlugin
         private string GenerateText()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("=== RADAR REPORT ===");
-            sb.AppendLine($"Echoes detected: {_distances.Count}");
-            sb.AppendLine($"Nearest object: {_distances.Min():F2} m");
-            sb.AppendLine($"Strongest reflection: {_reflections.Max():F2}%");
+            sb.AppendLine("--- ОТЧЕТ РАДАРА ---");
+            sb.AppendLine($"Обнаружено эхо-сигналов: {_distances.Count}");
+            sb.AppendLine($"Ближайший объект: {_distances.Min():F2} m");
+            sb.AppendLine($"Сильнейшее отражение: {_reflections.Max():F2}%");
             return sb.ToString();
         }
     }

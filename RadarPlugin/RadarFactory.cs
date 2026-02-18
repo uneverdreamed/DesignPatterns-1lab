@@ -15,7 +15,7 @@ namespace RadarPlugin
             return new RadarAnalyzer();
         }
 
-        public override string GetPluginName() => "Radar Analyzer";
+        public override string GetPluginName() => "Анализатор радара";
         public override string GetPluginVersion() => "1.0.0";
     }
 }

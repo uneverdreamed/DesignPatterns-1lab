@@ -12,7 +12,7 @@ namespace MissionControl.Simulation
 
         public static byte[] GenerateSpectrometerData(int samples = 50)
         {
-            Console.WriteLine($"[SIMULATOR] Generating {samples} spectrometer samples...");
+            Console.WriteLine($"[СИМУЛЯТОР] Генерация {samples} образцов спектрометра...");
             byte[] data = new byte[samples * 2];
 
             for (int i = 0; i < samples * 2; i += 2)
@@ -29,7 +29,7 @@ namespace MissionControl.Simulation
 
         public static byte[] GenerateRadarData(int echoes = 40)
         {
-            Console.WriteLine($"[SIMULATOR] Generating {echoes} radar echoes...");
+            Console.WriteLine($"[СИМУЛЯТОР] Генерация {echoes} эхо-сигналов радара...");
             byte[] data = new byte[echoes * 2];
 
             for (int i = 0; i < echoes * 2; i += 2)

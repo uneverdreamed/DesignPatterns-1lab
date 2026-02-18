@@ -13,31 +13,31 @@ namespace MissionControl
         static void Main(string[] args)
         {
             Console.WriteLine("╔════════════════════════════════════════╗");
-            Console.WriteLine("║   MISSION CONTROL CENTER - v1.0        ║");
+            Console.WriteLine("║   ЦЕНТР УПРАВЛЕНИЯ МИССИЕЙ - v1.0      ║");
             Console.WriteLine("╚════════════════════════════════════════╝\n");
 
             // === ЭТАП 1: Загрузка плагинов ===
-            Console.WriteLine("=== STAGE 1: Loading Plugins ===");
+            Console.WriteLine("--- ЭТАП 1: Загрузка плагинов ---");
             var loader = new PluginLoader();
             var pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
             var factories = loader.LoadPlugins(pluginPath);
 
             if (factories.Count == 0)
             {
-                Console.WriteLine("\n[ERROR] No plugins found! Please copy plugin DLLs to the 'plugins' folder.");
-                Console.WriteLine("Press any key to exit...");
+                Console.WriteLine("\n[ОШИБКА] Плагины не найдены! Скопируйте DLL файлы в папку 'plugins'.");
+                Console.WriteLine("Нажмите любую клавишу для выхода...");
                 Console.ReadKey();
                 return;
             }
 
-            Console.WriteLine($"\n[SUCCESS] Loaded {factories.Count} plugin(s)\n");
+            Console.WriteLine($"\n[УСПЕХ] Загружено плагинов: {factories.Count}\n");
 
             // === ЭТАП 2: Демонстрация Фабричного метода ===
-            Console.WriteLine("=== STAGE 2: Factory Method Pattern Demo ===");
+            Console.WriteLine("--- ЭТАП 2: Демонстрация паттерна Фабричный метод ---");
 
             foreach (var factory in factories)
             {
-                Console.WriteLine($"\n--- Testing {factory.GetPluginName()} ---");
+                Console.WriteLine($"\n--- Тестирование {factory.GetPluginName()} ---");
 
                 // Создаём анализатор через фабрику
                 var analyzer = factory.CreateAnalyzer();
@@ -62,19 +62,19 @@ namespace MissionControl
                 analyzer.ProcessData(testData);
 
                 // Получаем отчёт
-                Console.WriteLine("\n--- Report (PlainText format) ---");
+                Console.WriteLine("\n--- Отчёт (формат PlainText) ---");
                 Console.WriteLine(analyzer.GetReport());
 
                 analyzer.Terminate();
             }
 
             // === ЭТАП 3: Демонстрация Строителя ===
-            Console.WriteLine("\n=== STAGE 3: Builder Pattern Demo ===");
+            Console.WriteLine("\n--- ЭТАП 3: Демонстрация паттерна Строитель ---");
 
             if (factories.Count > 0)
             {
                 var factory = factories[0]; // Берём первый плагин
-                Console.WriteLine($"\n--- Configuring {factory.GetPluginName()} with Builder ---");
+                Console.WriteLine($"\n--- Конфигурация {factory.GetPluginName()} через Строитель ---");
 
                 // Создаём строитель (упрощённо - через рефлексию)
                 IAnalyzerBuilder? builder = CreateBuilder(factory);
@@ -85,7 +85,7 @@ namespace MissionControl
                     var director = new AnalyzerDirector();
 
                     // === Конфигурация 1: Mars ===
-                    Console.WriteLine("\n--- Configuration: MARS MISSION ---");
+                    Console.WriteLine("\n--- Конфигурация: МАРСИАНСКАЯ МИССИЯ ---");
                     var marsAnalyzer = director.BuildMarsConfiguration(builder);
                     marsAnalyzer.Initialize();
 
@@ -94,26 +94,26 @@ namespace MissionControl
                         : TelemetrySimulator.GenerateRadarData(15);
 
                     marsAnalyzer.ProcessData(marsData);
-                    Console.WriteLine("\n--- Mars Report (JSON format) ---");
+                    Console.WriteLine("\n--- Отчёт Марс (формат JSON) ---");
                     Console.WriteLine(marsAnalyzer.GetReport());
                     marsAnalyzer.Terminate();
 
                     // === Конфигурация 2: Moon ===
-                    Console.WriteLine("\n--- Configuration: LUNAR MISSION ---");
-                    var lunarAnalyzer = director.BuildMoonConfiguration(builder);
-                    lunarAnalyzer.Initialize();
+                    Console.WriteLine("\n--- Конфигурация: ЛУННАЯ МИССИЯ ---");
+                    var MoonAnalyzer = director.BuildMoonConfiguration(builder);
+                    MoonAnalyzer.Initialize();
 
-                    byte[] lunarData = factory.GetPluginName().Contains("Spectrometer")
+                    byte[] MoonData = factory.GetPluginName().Contains("Spectrometer")
                         ? TelemetrySimulator.GenerateSpectrometerData(20)
                         : TelemetrySimulator.GenerateRadarData(15);
 
-                    lunarAnalyzer.ProcessData(lunarData);
-                    Console.WriteLine("\n--- Lunar Report ---");
-                    Console.WriteLine(lunarAnalyzer.GetReport());
-                    lunarAnalyzer.Terminate();
+                    MoonAnalyzer.ProcessData(MoonData);
+                    Console.WriteLine("\n--- Отчёт Луна ---");
+                    Console.WriteLine(MoonAnalyzer.GetReport());
+                    MoonAnalyzer.Terminate();
 
                     // === Конфигурация 3: Custom ===
-                    Console.WriteLine("\n--- Configuration: CUSTOM ---");
+                    Console.WriteLine("\n--- Конфигурация: ПОЛЬЗОВАТЕЛЬСКАЯ ---");
                     builder.Reset();
                     builder.SetCalibration(new CalibrationData(2.0, 10.0));
                     builder.SetFilters(new FilterConfig(10.0, 500.0, true));
@@ -127,7 +127,7 @@ namespace MissionControl
                         : TelemetrySimulator.GenerateRadarData(15);
 
                     customAnalyzer.ProcessData(customData);
-                    Console.WriteLine("\n--- Custom Report ---");
+                    Console.WriteLine("\n--- Отчёт пользовательской конфигурации ---");
                     Console.WriteLine(customAnalyzer.GetReport());
                     customAnalyzer.Terminate();
                 }
@@ -135,9 +135,9 @@ namespace MissionControl
 
             // === ЗАВЕРШЕНИЕ ===
             Console.WriteLine("\n╔════════════════════════════════════════╗");
-            Console.WriteLine("║        DEMONSTRATION COMPLETE          ║");
+            Console.WriteLine("║        ДЕМОНСТРАЦИЯ ЗАВЕРШЕНА          ║");
             Console.WriteLine("╚════════════════════════════════════════╝");
-            Console.WriteLine("\nPress any key to exit...");
+            Console.WriteLine("\nНажмите любую клавишу для выхода...");
             Console.ReadKey();
         }
 
@@ -158,7 +158,7 @@ namespace MissionControl
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[WARNING] Could not create builder: {ex.Message}");
+                Console.WriteLine($"[ВНИМАНИЕ] Не удалось создать строитель: {ex.Message}");
             }
 
             return null;

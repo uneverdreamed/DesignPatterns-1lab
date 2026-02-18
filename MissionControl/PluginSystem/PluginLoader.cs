@@ -16,20 +16,20 @@ namespace MissionControl.PluginSystem
 
             if (!Directory.Exists(pluginDirectory))
             {
-                Console.WriteLine($"[LOADER] Plugin directory not found: {pluginDirectory}");
+                Console.WriteLine($"[ЗАГРУЗЧИК] Папка плагинов не найдена: {pluginDirectory}");
                 Directory.CreateDirectory(pluginDirectory);
-                Console.WriteLine($"[LOADER] Created directory: {pluginDirectory}");
+                Console.WriteLine($"[ЗАГРУЗЧИК] Создана папка: {pluginDirectory}");
                 return factories;
             }
 
             var dllFiles = Directory.GetFiles(pluginDirectory, "*.dll");
-            Console.WriteLine($"[LOADER] Found {dllFiles.Length} DLL files");
+            Console.WriteLine($"[ЗАГРУЗЧИК] Найдено {dllFiles.Length} DLL файлов");
 
             foreach (var dllFile in dllFiles)
             {
                 try
                 {
-                    Console.WriteLine($"[LOADER] Loading {Path.GetFileName(dllFile)}...");
+                    Console.WriteLine($"[ЗАГРУЗЧИК] Загрузка {Path.GetFileName(dllFile)}...");
                     var assembly = Assembly.LoadFrom(dllFile);
 
                     var factoryTypes = assembly.GetTypes()
@@ -39,12 +39,12 @@ namespace MissionControl.PluginSystem
                     {
                         var factory = (AnalyzerFactory)Activator.CreateInstance(factoryType)!;
                         factories.Add(factory);
-                        Console.WriteLine($"[LOADER] Loaded: {factory.GetPluginName()} v{factory.GetPluginVersion()}");
+                        Console.WriteLine($"[ЗАГРУЗЧИК] Загружен: {factory.GetPluginName()} v{factory.GetPluginVersion()}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[LOADER] Error loading {Path.GetFileName(dllFile)}: {ex.Message}");
+                    Console.WriteLine($"[ЗАГРУЗЧИК] Ошибка загрузки {Path.GetFileName(dllFile)}: {ex.Message}");
                 }
             }
 

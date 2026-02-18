@@ -11,13 +11,13 @@ namespace SpectrometerPlugin
     {
         public override ITelemetryAnalyzer CreateAnalyzer()
         {
-            Console.WriteLine("[FACTORY] Creating Spectrometer Analyzer instance...");
+            Console.WriteLine("[ФАБРИКА] Создание экземпляра анализатора спектрометра...");
             return new SpectrometerAnalyzer();
         }
    
         public override string GetPluginName()
         {
-            return "Spectrometer Analyzer";
+            return "Анализатор спектрометра";
         }
 
         public override string GetPluginVersion()
@@ -27,8 +27,8 @@ namespace SpectrometerPlugin
 
         public override string GetPluginDescription()
         {
-            return "Analyzes spectral data from spectrometer sensors. " +
-                   "Processes wavelengths and intensities with calibration and filtering.";
+            return "Анализирует спектральные данные от датчиков спектрометра. " +
+                   "Обрабатывает длины волн и интенсивности с калибровкой и фильтрацией.";
         }
     }
 }
