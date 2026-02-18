@@ -28,7 +28,7 @@ namespace SpectrometerPlugin
 
         public void Initialize()
         {
-            Console.WriteLine("[SPECTROMETER] Initialized");
+            Console.WriteLine("[SPECTROMETER] Инициализирован");
             _wavelengths.Clear();
             _intensities.Clear();
             _isInitialized = true;
@@ -39,7 +39,7 @@ namespace SpectrometerPlugin
             if (!_isInitialized)
                 throw new InvalidOperationException("Not initialized");
 
-            Console.WriteLine($"[SPECTROMETER] Processing {rawData.Length} bytes...");
+            Console.WriteLine($"[SPECTROMETER] Обработка {rawData.Length} байт...");
             
             for (int i = 0; i < rawData.Length - 1; i += 2)
             {
@@ -55,24 +55,24 @@ namespace SpectrometerPlugin
                 }
             }
 
-            Console.WriteLine($"[SPECTROMETER] Found {_wavelengths.Count} spectral lines");
+            Console.WriteLine($"[SPECTROMETER] Найдено {_wavelengths.Count} спектральных линий");
         }
 
         public string GetReport()
         {
             if (_wavelengths.Count == 0)
-                return "No data";
+                return "Нет данных";
 
             return OutputFormat switch
             {
                 OutputFormat.JSON => GenerateJson(),
                 OutputFormat.PlainText => GenerateText(),
-                _ => "Unknown format"
+                _ => "Неизвестный формат"
             };
         }
         public void Terminate()
         {
-            Console.WriteLine("[SPECTROMETER] Terminated");
+            Console.WriteLine("[SPECTROMETER] Завершен");
             _wavelengths.Clear();
             _intensities.Clear();
             _isInitialized = false;
