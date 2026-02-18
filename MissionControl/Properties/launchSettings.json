@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MissionControl": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\USER\\source\\repos\\TelemetryAnalysis"
+    }
+  }
+}

@@ -21,14 +21,14 @@ namespace TelemetryCore.Builders
             var calibration = new CalibrationData
             {
                 ReferenceValue = 1.38,
-                Offset = -15.0,
+                Offset = 0.0,
                 CalibrationDate = DateTime.Now
             };
             builder.SetCalibration(calibration);
 
             var filters = new FilterConfig
             {
-                MinThreshold = 5.0,
+                MinThreshold = 0.0,
                 MaxThreshold = 950.0,
                 EnableNoiseReduction = true
             };
@@ -44,8 +44,8 @@ namespace TelemetryCore.Builders
 
             var calibration = new CalibrationData
             {
-                ReferenceValue = 1.16,
-                Offset = -120.0,
+                ReferenceValue = 0.9,
+                Offset = 5.0,
                 CalibrationDate = DateTime.Now
             };
             builder.SetCalibration(calibration);
