@@ -17,7 +17,7 @@ namespace MissionControl
             Console.WriteLine("╚════════════════════════════════════════╝\n");
 
             // === ЭТАП 1: Загрузка плагинов ===
-            Console.WriteLine("--- ЭТАП 1: Загрузка плагинов ---");
+            Console.WriteLine("= ЭТАП 1: Загрузка плагинов =");
             var loader = new PluginLoader();
             var pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
             var factories = loader.LoadPlugins(pluginPath);
@@ -33,11 +33,11 @@ namespace MissionControl
             Console.WriteLine($"\n[УСПЕХ] Загружено плагинов: {factories.Count}\n");
 
             // === ЭТАП 2: Демонстрация Фабричного метода ===
-            Console.WriteLine("--- ЭТАП 2: Демонстрация паттерна Фабричный метод ---");
+            Console.WriteLine("= ЭТАП 2: Демонстрация паттерна Фабричный метод =");
 
             foreach (var factory in factories)
             {
-                Console.WriteLine($"\n--- Тестирование {factory.GetPluginName()} ---");
+                Console.WriteLine($"\n= Тестирование {factory.GetPluginName()} =");
 
                 // Создаём анализатор через фабрику
                 var analyzer = factory.CreateAnalyzer();
@@ -69,7 +69,7 @@ namespace MissionControl
             }
 
             // === ЭТАП 3: Демонстрация Строителя ===
-            Console.WriteLine("\n--- ЭТАП 3: Демонстрация паттерна Строитель ---");
+            Console.WriteLine("\n= ЭТАП 3: Демонстрация паттерна Строитель =");
 
             if (factories.Count > 0)
             {

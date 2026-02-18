@@ -13,10 +13,6 @@ namespace TelemetryCore.models
         /// </summary>
         JSON,
         /// <summary>
-        /// формат XML
-        /// </summary>
-        XML,
-        /// <summary>
         /// простой тектовый формат
         /// </summary>
         PlainText

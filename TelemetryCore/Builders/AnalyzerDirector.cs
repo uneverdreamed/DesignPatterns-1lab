@@ -58,7 +58,7 @@ namespace TelemetryCore.Builders
             };
             builder.SetFilters(filters);
 
-            builder.SetOutputFormat(OutputFormat.XML);
+            builder.SetOutputFormat(OutputFormat.PlainText);
             return builder.Build();
         }
 
