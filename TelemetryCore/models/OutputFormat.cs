@@ -8,13 +8,7 @@ namespace TelemetryCore.models
 {
     public enum OutputFormat
     {
-        /// <summary>
-        /// формат JSON
-        /// </summary>
         JSON,
-        /// <summary>
-        /// простой тектовый формат
-        /// </summary>
         PlainText
     }
 }
