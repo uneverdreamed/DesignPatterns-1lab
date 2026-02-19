@@ -17,10 +17,10 @@ namespace MissionControl.Simulation
 
             for (int i = 0; i < samples * 2; i += 2)
             {
-                // Длина волны (случайная)
+                // случайная длина волны
                 data[i] = (byte)_random.Next(0, 256);
 
-                // Интенсивность (с пиками)
+                // случайная интенсивность
                 data[i + 1] = (byte)_random.Next(20, 200);
             }
 
@@ -34,10 +34,10 @@ namespace MissionControl.Simulation
 
             for (int i = 0; i < echoes * 2; i += 2)
             {
-                // Дистанция (от близкого к дальнему)
+                // дистанция (от близкого к дальнему)
                 data[i] = (byte)_random.Next(10, 256);
 
-                // Интенсивность отражения
+                // интенсивность отражения
                 data[i + 1] = (byte)_random.Next(30, 180);
             }
 

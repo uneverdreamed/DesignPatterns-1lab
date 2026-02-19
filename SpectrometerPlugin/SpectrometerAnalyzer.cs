@@ -28,7 +28,7 @@ namespace SpectrometerPlugin
 
         public void Initialize()
         {
-            Console.WriteLine("[SPECTROMETER] Инициализирован");
+            Console.WriteLine("[СПЕКТРОМЕТР] Инициализирован");
             _wavelengths.Clear();
             _intensities.Clear();
             _isInitialized = true;
@@ -37,9 +37,9 @@ namespace SpectrometerPlugin
         public void ProcessData(byte[] rawData)
         {
             if (!_isInitialized)
-                throw new InvalidOperationException("Not initialized");
+                throw new InvalidOperationException("не инициализирован");
 
-            Console.WriteLine($"[SPECTROMETER] Обработка {rawData.Length} байт...");
+            Console.WriteLine($"[СПЕКТРОМЕТР] Обработка {rawData.Length} байт...");
             
             for (int i = 0; i < rawData.Length - 1; i += 2)
             {
@@ -55,7 +55,7 @@ namespace SpectrometerPlugin
                 }
             }
 
-            Console.WriteLine($"[SPECTROMETER] Найдено {_wavelengths.Count} спектральных линий");
+            Console.WriteLine($"[СПЕКТРОМЕТР] Найдено {_wavelengths.Count} спектральных линий");
         }
 
         public string GetReport()
@@ -72,7 +72,7 @@ namespace SpectrometerPlugin
         }
         public void Terminate()
         {
-            Console.WriteLine("[SPECTROMETER] Завершен");
+            Console.WriteLine("[СПЕКТРОМЕТР] Завершен");
             _wavelengths.Clear();
             _intensities.Clear();
             _isInitialized = false;
